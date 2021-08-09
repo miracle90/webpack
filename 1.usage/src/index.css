@@ -1,0 +1,12 @@
+@import './bg.css';
+
+body {
+  color: red;
+}
+
+#logo {
+  width: 220px;
+  height: 220px;
+  background-image: url('./assets/1.png');
+  background-size: contain;
+}

@@ -1,8 +1,13 @@
-// let title = require('./title')
-// let content = require('./content.txt')
+import './index.css'
+import './less.less'
+import './sass.scss' 
 
-// console.log(title)
+// let logo = require('./assets/1.png')
 
-// console.log(content.default)
+// console.log(logo)
 
-console.log(process.env.NODE_ENV)
+// let img = new Image();
+
+// img.src = logo;
+
+// document.body.appendChild(img)

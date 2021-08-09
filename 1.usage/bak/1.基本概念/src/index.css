@@ -1,0 +1,5 @@
+@import url('./base.css');
+
+body {
+  background-image: url('../public/1.png');
+}
