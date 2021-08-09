@@ -5,6 +5,13 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 // 在webpack.config.js中拿不到
 // console.log('webpack.config.js NODE_ENV ', process.env.NODE_ENV)
 
+// 读取.env这个文件，把这里面的key，value写到process.env对象里
+require('dotenv').config({
+  path: '.env'
+})
+
+console.log(process.env.NODE_ENV)
+
 module.exports = {
   mode: process.env.NODE_ENV,
   devtool: false,
@@ -33,6 +40,24 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.js$/,
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              presets: [
+                '@babel/preset-env',
+                '@babel/preset-react'
+              ],
+              plugins: [
+                ['@babel/plugin-proposal-decorators', { legacy: true }],
+                ['@babel/plugin-proposal-class-properties', { loose: true }]
+              ]
+            }
+          }
+        ]
+      },
+      {
         test: /\.txt$/,
         use: 'raw-loader'
       },
@@ -46,7 +71,15 @@ module.exports = {
             loader: 'css-loader',
             // 如果有配置项，写成对象
             options: {
-              importLoaders: 1
+              // 要引入别的css文件时，要向下经过几个loader处理
+              importLoaders: 1,
+              // 是否启用cssModules
+              modules: false,
+              // modules: {
+              //   mode: 'local',
+              //   // auto: true,
+              //   localIdentName: '[path][name]_[local]--[hash:base64:5]',
+              // }
             }
           },
           'postcss-loader' // css 预处理器，处理各厂商的前缀

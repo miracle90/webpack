@@ -10,3 +10,11 @@ body {
   background-image: url('./assets/1.png');
   background-size: contain;
 }
+
+.cls {
+  background: yellow;
+}
+
+/* ::placeholder {
+  color: red;
+} */
