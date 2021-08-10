@@ -14,7 +14,13 @@ console.log(process.env.NODE_ENV)
 
 module.exports = {
   mode: process.env.NODE_ENV,
-  devtool: false,
+  // devtool: false,
+  // devtool: 'eval',
+  // devtool: 'source-map',
+  // devtool: 'cheap-source-map',
+  devtool: 'cheap-module-source-map',
+  // devtool: 'cheap-eval-source-map',
+  // devtool: 'cheap-module-eval-source-map',
   // entry: './src/index.js',
   entry: {
     main: './src/index.js'
@@ -31,14 +37,24 @@ module.exports = {
     // publicPath: '/',
     // 用于配置提供额外静态文件内容的目录
     contentBase: path.resolve('public'),
-    // 是否启动压缩，gzip 
+    // 是否启动压缩，gzip
     compress: true,
-    port: 0713,
+    port: 1000,
     open: false
   },
   // webpack只能理解 JavaScript 和 JSON
   module: {
     rules: [
+      {
+        test: /\.js$/,
+        loader: 'eslint-loader',
+        // 给loader进行分类，pre => normal => inline => post
+        enforce: 'pre',
+        // 如果发现不合要求，会自动修复
+        options: { fix: true },
+        // 不处理
+        exclude: /node_modules/
+      },
       {
         test: /\.js$/,
         use: [
