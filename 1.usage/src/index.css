@@ -1,4 +1,15 @@
-@import './bg.css';
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+#root {
+  width: 750px;
+  height: 750px;
+  background-color: green;
+}
+
+/* @import './bg.css';
 
 body {
   color: red;
@@ -13,7 +24,7 @@ body {
 
 .cls {
   background: yellow;
-}
+} */
 
 /* ::placeholder {
   color: red;

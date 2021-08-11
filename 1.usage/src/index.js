@@ -3,9 +3,9 @@
 
 // console.log(_.join(['a', 'b', 'c'], '@'));
 
-const jQuery = require('jquery');
+// const jQuery = require('jquery');
 
-console.log(jQuery);
+// console.log(jQuery);
 
 // import React from 'react';
 // import ReactDOM from 'react-dom';
@@ -13,7 +13,7 @@ console.log(jQuery);
 // ReactDOM.render('hello', document.getElementById('root'));
 
 // import style from './index.css'
-// import './index.css'
+import './index.css';
 // import './less.less'
 // import './sass.scss'
 

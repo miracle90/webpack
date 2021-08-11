@@ -4,6 +4,11 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const FilemanagerWebpackPlugin = require('filemanager-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+// 压缩css
+// const OptimizeCssAssetsWebpackPlugin = require('optimize-css-assets-webpack-plugin');
+// 压缩js，以前使用uglifyjs，不支持es6，已经废弃，terser-webpack-plugin已经内置
+const TerserWebpackPlugin = require('terser-webpack-plugin');
 
 // 在webpack.config.js中拿不到
 // console.log('webpack.config.js NODE_ENV ', process.env.NODE_ENV)
@@ -23,7 +28,16 @@ console.log(process.env.NODE_ENV);
 // 2、再找入口以来的模块，再进入进行递归编译
 
 module.exports = {
-	mode: process.env.NODE_ENV,
+	// 如果mode为production，很多插件会自带
+	mode: 'none',
+	// mode: process.env.NODE_ENV,
+	// 优化的选项
+	optimization: {
+		minimize: true,
+		minimizer: [
+			new TerserWebpackPlugin()
+		]
+	},
 	/**
 	 * eval 使用eval包裹模块代码，方便缓存
 	 * source-map 包含行、列、babel映射
@@ -67,7 +81,7 @@ module.exports = {
 		contentBase: path.resolve('public'),
 		// 是否启动压缩，gzip
 		compress: true,
-		port: 1000,
+		port: 8080,
 		open: false,
 		proxy: {
 			'/api': {
@@ -142,7 +156,9 @@ module.exports = {
 			{
 				test: /\.css$/,
 				use: [
-					'style-loader', // css 转成 js，结果一定要是js，因为它的结果就是给webpack使用
+
+					// 'style-loader', // 一般开发环境使用，上线使用 MiniCssExtractPlugin，css 转成 js，结果一定要是js，因为它的结果就是给webpack使用
+					MiniCssExtractPlugin.loader,
 					{
 						loader: 'css-loader',
 						// 如果有配置项，写成对象
@@ -159,12 +175,22 @@ module.exports = {
 						},
 					},
 					'postcss-loader', // css 预处理器，处理各厂商的前缀
+					{
+						loader: 'px2rem-loader',
+						options: {
+							// 规定一个rem单位是75px
+							remUnit: 75,
+							// 计算rem的精度，保留几位小数
+							remPrecession: 8,
+						}
+					}
 				],
 			},
 			{
 				test: /\.less$/,
 				use: [
-					'style-loader', // css 转成 js，结果一定要是js，因为它的结果就是给webpack使用
+					// 'style-loader', // css 转成 js，结果一定要是js，因为它的结果就是给webpack使用
+					MiniCssExtractPlugin.loader,
 					{
 						loader: 'css-loader',
 						// 如果有配置项，写成对象
@@ -179,7 +205,8 @@ module.exports = {
 			{
 				test: /\.scss$/,
 				use: [
-					'style-loader', // css 转成 js，结果一定要是js，因为它的结果就是给webpack使用
+					// 'style-loader', // css 转成 js，结果一定要是js，因为它的结果就是给webpack使用
+					MiniCssExtractPlugin.loader,
 					{
 						loader: 'css-loader',
 						// 如果有配置项，写成对象
@@ -205,6 +232,8 @@ module.exports = {
 							// 如果引入的文件小于8kb，就把图片变成base64字符串插入到html中
 							// 否则和file-loader一样，生成一个新的文件名，拷贝到dist目录中，返回新的路径名称
 							limit: 8 * 1024,
+							outputPath: 'images',
+							publicPath: '/images'
 						},
 					},
 				],
@@ -212,6 +241,9 @@ module.exports = {
 		],
 	},
 	plugins: [
+		new MiniCssExtractPlugin({
+			filename: 'style/[name].css'
+		}),
 		// 可以打包前先清空输出目录
 		new CleanWebpackPlugin({
 			cleanOnceBeforeBuildPatterns: ['**/*'],
@@ -248,7 +280,16 @@ module.exports = {
 		}),
 		new HtmlWebpackPlugin({
 			template: './src/index.html',
+			// 压缩
+			minify: {
+				// 移除注释
+				removeComments: true,
+				// 移除空格
+				collapseWhitespace: true
+			}
 		}),
+		// 压缩css
+		// new OptimizeCssAssetsWebpackPlugin()
 		// 运行本质是在编译的时候一个纯的字符串替换，并不会定义任何的变量
 		// 使用 JSON.stringify 是为了表示是一个字符串
 		// new webpack.DefinePlugin({
