@@ -1,7 +1,16 @@
-// import React from 'react';
-import ReactDOM from 'react-dom';
+// import _ from 'lodash';
+// const _ = require('expose-loader?exposes=_!lodash');
 
-ReactDOM.render('hello', document.getElementById('root'));
+// console.log(_.join(['a', 'b', 'c'], '@'));
+
+const jQuery = require('jquery');
+
+console.log(jQuery);
+
+// import React from 'react';
+// import ReactDOM from 'react-dom';
+
+// ReactDOM.render('hello', document.getElementById('root'));
 
 // import style from './index.css'
 // import './index.css'
@@ -19,6 +28,14 @@ ReactDOM.render('hello', document.getElementById('root'));
 // img.src = logo;
 
 // document.body.appendChild(img)
+
+// const a = 1;
+// const b = 2;
+// const c = 3;
+
+// debugger;
+
+// console.log(a, b, c);
 
 /**
  * writable

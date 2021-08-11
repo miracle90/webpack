@@ -13,12 +13,19 @@ module.exports = {
     node: true,
   },
   rules: {
-    // indent: 'off',
+    indent: 'off',
     // quotes: 'off',
     // 不能出现console
     'no-console': 'off',
     'linebreak-style': 'off',
-    'comma-dangle': 0
+    'comma-dangle': 0,
+    'no-debugger': 0,
+    'max-len': 0,
+    'no-tabs': 0,
+    'no-eval': 0,
+    'import/no-webpack-loader-syntax': 0,
+    'import/no-unresolved': 0,
+    'import/no-extraneous-dependencies': 0
   },
 };
 
