@@ -21,3 +21,20 @@ Object.defineProperty(obj, 'age', {
 console.log(obj.age)
 obj.age = 20
 console.log(obj.age)
+
+// Object.defineProperty
+// Object.defineProperties
+
+// 定义多个属性
+Object.defineProperties(obj, {
+  k1: {
+    value: 'k1',
+    enumerable: true
+  },
+  k2: {
+    value: 'k2',
+    enumerable: true
+  }
+})
+
+console.log(obj)
