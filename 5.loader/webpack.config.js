@@ -11,7 +11,20 @@ module.exports = {
   },
   module: {
     rules: [
-
+      {
+        test: /\.js$/,
+        use: ['normal1-loader', 'normal2-loader']
+      },
+      {
+        enforce: 'post',
+        test: /\.js$/,
+        use: ['post1-loader', 'post2-loader']
+      },
+      {
+        enforce: 'pre',
+        test: /\.js$/,
+        use: ['pre1-loader', 'pre2-loader']
+      }
     ]
   },
   plugins: []
