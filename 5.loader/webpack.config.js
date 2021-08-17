@@ -46,6 +46,13 @@ module.exports = {
           }
         }]
       },
+      {
+        test: /\.less$/,
+        use: [
+          'style-loader', // 生成一段js脚本，向页面插入style标签，style的内容就是css文本
+          'less-loader' // 把less编译成css
+        ]
+      }
       // {
       //   test: /\.js$/,
       //   use: ['normal1-loader', 'normal2-loader']
