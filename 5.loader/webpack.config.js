@@ -1,3 +1,4 @@
+const { resolve } = require('path')
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
@@ -16,21 +17,23 @@ module.exports = {
       "file-loader": path.resolve('./loaders/file-loader.js'),
     },
     //也可以配置loaders加载目录
+    // 多的话可以配置modules
     modules: [path.resolve('./loaders'), 'node_modules']
   },
   module: {
     rules: [
       {
         test: /\.js$/,
-        use: ['babel-loader']
-        // use: [{
-        //   loader: 'babel-loader',
-        //   options: {
-        //     presets: ['@babel/preset-env'],
-        //     // 如果这个参数不传，默认值false，不会生成sourceMap
-        //     sourceMaps: true
-        //   }
-        // }]
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              presets: ['@babel/preset-env'],
+              // 如果这个参数不传，默认false，不会生成sourceMap
+              sourceMap: true
+            }
+          }
+        ]
       },
       {
         test: /\.(jpg|png|gif)$/,
@@ -42,7 +45,7 @@ module.exports = {
             fallback: path.resolve('./loaders/file-loader.js')
           }
         }]
-      }
+      },
       // {
       //   test: /\.js$/,
       //   use: ['normal1-loader', 'normal2-loader']

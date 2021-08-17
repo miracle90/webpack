@@ -8,7 +8,7 @@ const entry = path.resolve(__dirname, 'src', 'index.js')
 // 放在请求串里的叫做内联loader
 let request = `inline1-loader!inline2-loader!${entry}`
 
-let rules = [
+let rules = [ 
   {
     test: /\.js$/,
     use: ['normal1-loader', 'normal2-loader']
@@ -28,7 +28,7 @@ let rules = [
 let parts = request.split('!')
 let resource = parts.pop()
 
-const resolveLoader = loader => path.resolve(__dirname, 'loaders', loader)
+const resolveLoader = loader => path.resolve(__dirname, 'loader-runner', loader)
 
 const inlineLoaders = parts
 const preLoaders = []
