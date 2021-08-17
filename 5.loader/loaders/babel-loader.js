@@ -1,24 +1,18 @@
 const babel = require('@babel/core')
-<<<<<<< HEAD
 const path = require('path')
+const { getOptions } = require('loader-utils')
 
 function loader(inputSource) {
-  const { getOptions } = require('loader-utils')
-  let options = getOptions(this) || {}
-  options.filename = path.basename(this.resourcePath)
-  let { code, map, ast } = babel.transform(inputSource, options)
-  return this.callback(null, code, map, ast)
-=======
-
-function loader(inputSource) {
-  const options = {
-    // 转换语法靠的是预设
-    presets: ['@babel/preset-env'],
-    // 如果这个值不传，默认值false，不会生成sourceMap
-    sourceMaps: true,
-    filename: this.request.split('!')[1].split('/').pop()
-  }
-  /**
+    // let options = getOptions(this) || {}
+    const options = {
+      // 转换语法靠的是预设
+      presets: ['@babel/preset-env'],
+      // 如果这个值不传，默认值false，不会生成sourceMap
+      sourceMaps: true,
+      filename: this.request.split('!')[1].split('/').pop()
+    }
+    options.filename = path.basename(this.resourcePath)
+    /**
    * code 转换后的es5代码
    * map 转换后的代码到转换前的代码的映射
    * ast 转换后的抽象语法树
@@ -31,7 +25,6 @@ function loader(inputSource) {
   // 在这个loader里，把es6转成了es5，给了webpack
   // 但是webpack只能实现main.js
   // module loader转换的时候，es6 => es5，也有一个map文件
->>>>>>> f9daf00c915f337ceedcea082fe357e4daa84008
 }
 
 module.exports = loader

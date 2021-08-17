@@ -1,6 +1,6 @@
 const path = require('path')
 const fs = require('fs')
-const { runLoaders } = require('loader-runner')
+const { runLoaders } = require('./loader-runner')
 
 // 入口文件
 const entry = path.resolve(__dirname, 'src', 'index.js')

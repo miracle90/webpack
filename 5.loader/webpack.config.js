@@ -12,11 +12,12 @@ module.exports = {
     filename: '[name].js'
   },
   resolveLoader: {
-    alias: {//可以配置别名
+    //可以配置别名
+    alias: {
       "babel-loader": path.resolve('./loaders/babel-loader.js'),
       "file-loader": path.resolve('./loaders/file-loader.js'),
     },
-    //也可以配置loaders加载目录
+    // 也可以配置loaders加载目录
     // 多的话可以配置modules
     modules: [path.resolve('./loaders'), 'node_modules']
   },
