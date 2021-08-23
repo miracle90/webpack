@@ -1,0 +1,21 @@
+{
+  "name": "10.polyfill",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.15.0",
+    "@babel/preset-env": "^7.15.0",
+    "babel-loader": "^8.2.2",
+    "webpack-cli": "^4.8.0"
+  },
+  "dependencies": {
+    "@babel/polyfill": "^7.12.1"
+  }
+}

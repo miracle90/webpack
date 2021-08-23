@@ -31,8 +31,24 @@ module.exports = {
       },
       {
         test: /\.ico$/,
-        // 生成一个base64字符串
+        // 生成一个base64字符串，url-loader
+        // 不需要设置阈值，不能设置
         type: 'asset/inline'
+      },
+      {
+        test: /\.txt$/,
+        // 相当于 raw-loader
+        type: 'asset/source'
+      },
+      {
+        test: /\.jpg$/,
+        // 如果想设置阈值，配置这个
+        type: 'asset',
+        parser: {
+          dataUrlCondition: {
+            maxSize: 8 * 1024
+          }
+        }
       }
     ]
   },
@@ -41,5 +57,9 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './public/index.html'
     })
-  ]
+  ],
+  // 实验性的配置
+  expreiments: {
+    asset: true
+  }
 }

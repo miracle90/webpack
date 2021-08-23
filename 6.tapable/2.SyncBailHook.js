@@ -7,8 +7,9 @@ const { SyncBailHook } = require('tapable')
 const syncBailHook = new SyncBailHook(['name', 'age'])
 
 // 注册事件
-synsyncBailHookcHook.tap('1', (name, age) => {
+syncBailHook.tap('1', (name, age) => {
   console.log(1, name, age)
+  return '1'
 })
 
 syncBailHook.tap('2', (name, age) => {
