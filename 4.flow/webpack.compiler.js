@@ -1,5 +1,5 @@
 const fs = require('fs')
-const { SyncHook } = require('tapable');
+const { SyncHook } = require('./tapable');
 const Complication = require('./webpack.complication')
 
 class Compiler {
@@ -16,7 +16,7 @@ class Compiler {
 	}
   // 4. 执行对象的run方法开始执行编译
 	run(callback) {
-		console.log('Compiler开始变异了');
+		console.log('Compiler开始编译了');
     // 触发run钩子
     this.hooks.run.call()
     /**
@@ -30,7 +30,6 @@ class Compiler {
     // })
     // 编译之后触发done钩子
     this.hooks.done.call()
-
 		// callback(null, {
 		// 	toJson() {
 		// 		return {

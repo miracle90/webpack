@@ -11,24 +11,25 @@
 
 // > 在以上过程中，Webpack 会在特定的时间点广播出特定的事件，插件在监听到感兴趣的事件后会执行特定的逻辑，并且插件可以调用 Webpack 提供的 API 改变 Webpack 的运行结果
 
-const Compiler = require('./webpack.compiler');
+const Compiler = require("./webpack.compiler");
 
 function webpack(options) {
-	let shellConfig = process.argv.slice(2).reduce((shellConfig, item) => {
-		let [key, value] = item.split('=');
-		shellConfig[key.slice(2)] = value;
-		return shellConfig;
-	}, {});
-	// 1. 初始化参数：从配置文件和Shell语句中读取并合并参数,得出最终的配置对象
-	let finalConfig = { ...options, ...shellConfig };
-	// 2. 用上一步得到的参数初始化Compiler对象
-	let compiler = new Compiler(finalConfig);
+  let shellConfig = process.argv.slice(2).reduce((shellConfig, item) => {
+    let [key, value] = item.split("=");
+    shellConfig[key.slice(2)] = value;
+    return shellConfig;
+  }, {});
+  // 1. 初始化参数：从配置文件和Shell语句中读取并合并参数,得出最终的配置对象
+  let finalConfig = { ...options, ...shellConfig };
+  // 2. 用上一步得到的参数初始化Compiler对象
+  let compiler = new Compiler(finalConfig);
   // 3. 加载所有配置的插件
-  let { plugins } = finalConfig
+  let { plugins } = finalConfig;
   for (const plugin of plugins) {
-    plugin.apply(compiler)
+    // 每个插件都有一个apply方法，并且接收Compiler的实例
+    plugin.apply(compiler);
   }
-	return compiler;
+  return compiler;
 }
 
 module.exports = webpack;
